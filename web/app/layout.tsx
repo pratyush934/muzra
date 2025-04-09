@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ContextProviders from "./context/ContextProviders";
 import Header from "@/components/Header";
+import { ThemeProvider } from "next-themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,21 +27,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <ContextProviders>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <header>
-            <Header />
-          </header>
-          <main className="min-h-screen mt-20 container mx-auto">{children}</main>
-          <footer className="bg-muted/50 py-12">
-            <div className="container mx-auto text-center text-gray-500 px-4">
-              Footer
-            </div>
-          </footer>
-        </body>
-      </ContextProviders>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ContextProviders>
+          <ThemeProvider
+            attribute={"class"}
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <header>
+              <Header />
+            </header>
+            <main className="min-h-screen mt-20 container mx-auto">
+              {children}
+            </main>
+            <footer className="bg-muted/50 py-12">
+              <div className="container mx-auto text-center text-gray-500 px-4">
+                Footer
+              </div>
+            </footer>
+          </ThemeProvider>
+        </ContextProviders>
+      </body>
     </html>
   );
 }
