@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     if (!isYoutube) {
       return NextResponse.json(
         {
-          message: "Wrong url",
+          message: "Wrong url format",
         },
         {
           status: 400,
